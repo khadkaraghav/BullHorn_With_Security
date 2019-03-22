@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>BullHorn</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="bg-secondary jumbotron jumbotron-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;" align="center">
+            <a class="navbar-brand" href="/">
+                BullHorn
+            </a>
+        </nav>
+    </div>
+</div>
+<br/>
+<br/>
+
+<h4 class="text-center p-3">New User Registration</h4>
+<form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data" align="center">
+    <input type="hidden" th:field="*{id}" />
+
+    First Name <mark><strong>
+    <span th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}">First Name Error</span></strong></mark>
+    <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" /><br/><br/>
+
+    Last Name <mark><strong>
+    <span th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}">Last Name Error</span></strong></mark>
+    <input type="text" id="lasttName" placeholder="Last Name" th:field="*{lastName}" /><br/><br/>
+
+    Email <mark><strong>
+    <span th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}">Email Error</span></strong></mark>
+    <input type="text" id="email" placeholder="Email" th:field="*{email}" /><br/><br/>
+
+    Username <mark><strong>
+    <span th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}">Username Error</span></strong></mark>
+    <input type="text" id="username" placeholder="Username" th:field="*{username}" /><br/><br/>
+
+    Password <mark><strong>
+    <span th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}">Password Error</span></strong></mark>
+    <input type="text" id="password" placeholder="Password" th:field="*{password}" /><br/><br/>
+
+    Choose your profile picture
+    <input type="file" name="file" />
+    <br/><br/>
+
+    <!--Motto <mark><strong>
+    <span th:if="${#fields.hasErrors('motto')}"
+          th:errors="*{motto}">Motto Error</span></strong></mark>
+    <input type="text" id="motto" placeholder="Type Your Motto" th:field="*{motto}" /><br />
+-->
+    <input class="btn-sm btn-success btn" type="submit" value="Register"/></div>
+
+
+
+
+</form>
+</body>
+</html>

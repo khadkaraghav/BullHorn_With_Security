@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>BullHorn</title>
+</head>
+<body>
+<div class="container">
+
+    <h2 class="text-info" align="center">BullHorn</h2>
+
+    <div class="col-sm-12 col-md-12" align="center">
+    <div sec:authorize="!isAuthenticated()">
+        <a href="/login" class="btn btn-primary">Login</a>
+        <a href="/register" class="btn btn-primary">Register</a>
+    </div>
+    </div>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">User</th>
+            <th scope="col">Content</th>
+            <th scope="col">Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message : ${messages}">
+
+            <td><a href="/showuserprofile"><span th:text="${message.user.username}"></span></a> <img th:src="${message.user.gravatar}" width="50" height="50" alt="user image"></td>
+
+            <td th:text="${message.content}"></td>
+
+<!--
+            <td th:text="${message.id}"></td>
+-->
+            <td th:text="${message.postedDate}"></td>
+
+            <td><div th:if="${message.image} !=null"><img th:src="${message.image}" width="50" height="50"></div></td>
+
+            <td><div sec:authorize="isAuthenticated()">
+                <a th:href="@{/update/{id} (id=${message.id})}" align="center">Update</a> -
+                <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/delete/{id} (id=${message.id})}" align="center">Delete</a></div></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+    <div class="jumbotron">
+    <div sec:authorize="isAuthenticated()" align="center">
+        <a href="/add" class="btn btn-primary" align="center">Add New Message</a><br>
+
+        <p class="label label-primary" align="center"> Logged User: &nbsp;&nbsp;<span sec:authentication="name"></span><br>
+        <p class="label label-primary" align="center"> Roles: &nbsp;&nbsp;<span sec:authentication="principal.authorities"></span><br>
+
+        <a href="/viewUser" align="center">Update My Information</a><br/>
+        <a href="/logout" align="center">Logout</a><br/>
+        <br/>
+
+      <!--  <div sec:authorize="hasAuthority('ADMIN')">
+
+
+            <a href="/showuserprofile" class="btn secondary">User List</a></div>
+-->
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>BullHorn</title>
+</head>
+<body>
+<div class="container" >
+    <hr>
+    <form action="/add" th:object="${message}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}" />
+
+        <a href="/logout" class="btn btn-secondary" align="center">Logout</a><br/>
+        <br/>
+        <br/>
+
+        <h6 class="text-info">Add Your Message Here</strong></h6>
+        <textarea placeholder="" rows="2" cols="80" th:field="*{content}" />
+        <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span><br />
+
+        <h6 class="text-info">Date<input type="date" th:field="*{postedDate}" /></h6>
+        <span th:if="${#fields.hasErrors('postedDate')}" th:errors="*{postedDate}"></span><br />
+
+        <h6 class="text-info"><strong>Upload Your Image </strong><input type="file" name="file" /></h6>
+        <input class="btn-sm btn-success btn" type="submit" name="SUBMIT"/>
+    </form><br>
+
+    <div class="jumbotron jumbotron-fluid">
+    <div sec:authorize="isAuthenticated()">
+        <p class="label label-primary" align="center"> Logged User: &nbsp;&nbsp;<span sec:authentication="name"></span><br>
+        <p class="label label-primary" align="center"> Roles: &nbsp;&nbsp;<span sec:authentication="principal.authorities"></span><br>
+
+
+        <!--<div sec:authorize="hasAuthority('ADMIN')">
+            <a href="/showuserprofile" class="badge badge-warning"><h3><Strong>User List</Strong></h3></a></div>-->
+    </div>
+    </div>
+</div>
+</body>
+</html>
